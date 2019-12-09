@@ -26,13 +26,23 @@
         }
 
         #time{
-            margin: 0 50px 0 15px;
+            margin: 0 40px 0 15px;
             font-size: 11px;
             cursor:default;
         }
 
         .ask{
             font-size: 14px;
+            border-radius: 3px;
+            padding: 4px 8px;
+            background-color: #b91d19;
+            color: white;
+            text-decoration: none;
+        }
+        .ask:hover{
+            background-color: #d0211c;
+            color: white;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -54,7 +64,7 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Ask Question</a>
+                                <a class="ask" href="#">Ask Question</a>
                             </li>
                         @endauth
                     </ul>
