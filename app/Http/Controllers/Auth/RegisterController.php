@@ -53,9 +53,9 @@ class RegisterController extends Controller
             'dob.before' => 'Must be 18 years or older',
         ];
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6', 'confirmed', 'alpha_num'],
             'gender' => ['required', 'string'],
             'address' => ['required', 'string'],
             'dob' => ['required', 'date', 'before:-18 years'],
