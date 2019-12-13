@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('topic_id');
-            $table->integer('open'); //0 for closed, 1 for open
+            $table->integer('open')->default(1); //0 for closed, 1 for open
             $table->string('text');
 
             $table->timestamps();

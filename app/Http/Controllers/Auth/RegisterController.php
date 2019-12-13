@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
+    //digunakan untuk menyimpan request sekarang yang nantinya akan diassign di constructor
+    protected $request;
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -20,6 +24,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
+
 
     use RegistersUsers;
 
@@ -35,8 +40,9 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
         $this->middleware('guest');
     }
 
@@ -50,7 +56,7 @@ class RegisterController extends Controller
     {
         //custom error message
         $messages = [
-            'dob.before' => 'Must be 18 years or older',
+            'email.max' => 'Email is too long'
         ];
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:100'],
@@ -58,8 +64,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed', 'alpha_num'],
             'gender' => ['required', 'string'],
             'address' => ['required', 'string'],
-            'dob' => ['required', 'date', 'before:-18 years'],
-
+            'dob' => ['required', 'date'],
+            'profile_picture' => ['required','mimes:jpeg,png,jpg'],
         ], $messages);
     }
 
@@ -67,10 +73,15 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
+     * @param  Request
      * @return \App\User
      */
     protected function create(array $data)
     {
+        $file = $this->request->file('profile_picture');
+        $file_name = uniqid() . "-" . $file->getClientOriginalName();
+        $file->move(public_path('/images'),$file_name);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -78,6 +89,7 @@ class RegisterController extends Controller
             'gender' => $data['gender'],
             'address' => $data['address'],
             'dob' => $data['dob'],
+            'profile_image' => $file_name,
         ]);
     }
 }
