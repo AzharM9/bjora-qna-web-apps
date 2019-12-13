@@ -27,7 +27,7 @@
 
         #time{
             margin: 0 40px 0 15px;
-            font-size: 11px;
+            font-size: 12px;
             cursor:default;
         }
 
@@ -35,7 +35,7 @@
             font-size: 14px;
             border-radius: 3px;
             padding: 4px 8px;
-            background-color: #b91d19;
+            background-color: #e3342f;
             color: white;
             text-decoration: none;
         }
@@ -44,13 +44,30 @@
             color: white;
             text-decoration: none;
         }
+        .question-form>div{
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .question-form>div:nth-last-child(1){
+            margin-bottom: 0;
+        }
+
+        .profile-picture{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 1px 0.5px black;
+        }
+        #app{
+            font-size: 17px;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a style="font-size: 23px;"class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Bjora') }}
                 </a>
                 <span class="separator"></span>
@@ -63,9 +80,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                            <li class="nav-item">
-                                <a class="ask" href="#">Ask Question</a>
-                            </li>
+                            @if(\Illuminate\Support\Facades\Route::currentRouteName() != "question")
+                                <li class="nav-item">
+                                    <a class="ask" href="{{url('/question')}}">Ask Question</a>
+                                </li>
+                            @endif
                         @endauth
                     </ul>
 
@@ -84,7 +103,9 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
+
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <img class="profile-picture" src="{{ asset("images/".Auth::user()->profile_image) }}">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 

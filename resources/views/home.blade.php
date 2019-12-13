@@ -3,28 +3,45 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div>
                 <form style="width: 300px;margin-bottom: 15px;" action="{{url()->current()}}">
                     <div class="input-group">
                         <input type="text" name="search" value="" class="form-control" placeholder="Search Questions">
-                        <span class="input-group-btn"><button type="submit" class="btn btn-primary">Search</button></span>
+                        <span class="input-group-btn">
+                            <button style="border-top-left-radius: 0px; border-bottom-left-radius: 0px;" type="submit" class="btn btn-primary">
+                                Search
+                            </button>
+                        </span>
                     </div>
                 </form>
             </div>
-            {{--belum di foreach data questionsnya--}}
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+            @foreach($questions as $question)
+                <div style="margin-bottom:15px;" class="card">
+                    <div class="card-body">
+                        <div>
+                            <small>{{$question->topic_name}}</small>
                         </div>
-                    @endif
-
-                    You are logged in!
+                        <div>
+                            <h2>{{$question->text}}</h2>
+                        </div>
+                        <div style="display:flex; align-items: center;">
+                            <div>
+                                <img style="width: 50px; height: 50px; margin-right: 10px;"class="profile-picture" src="{{ asset("images/".$question->profile_image) }}">
+                            </div>
+                            <div>
+                                <a href="{{url('/profile/'.$question->user_id)}}">{{$question->user_name}}</a>
+                                <div style="font-size: 14px"><strong>created at : </strong><small>{{$question->created_at}}</small></div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px">
+                            <a class="ask" href="{{url('/answer/'.$question->id)}}">Answer</a>
+                        </div>
+                    </div>
                 </div>
+            @endforeach
+            <div style="display: flex; justify-content: center;">
+                {{$questions->links()}}
             </div>
         </div>
     </div>
