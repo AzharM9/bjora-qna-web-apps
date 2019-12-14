@@ -21,3 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/question', 'QuestionController@index')->name('question');
 Route::post('/question', 'QuestionController@store')->name('question');
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin',
+], function () {
+    Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
+});
