@@ -26,6 +26,12 @@ Route::get('/question/edit/{id}', 'QuestionController@edit')->name('edit-questio
 Route::post('/question/edit/{id}', 'QuestionController@update');
 Route::post('/question/destroy', 'QuestionController@destroy');
 
+/*.Akses memerlukan Login terlebih dahulu.*/
+Route::get('/question/{id}', 'QuestionController@show')->name('question.show');
+Route::resource('inboxes', 'MessageController')->middleware('auth');
+Route::resource('answer', 'AnswerController')->middleware('auth');
+Route::resource('profile', 'ProfileController')->middleware('auth');
+
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
