@@ -16,11 +16,17 @@ class CheckRole
      */
     public function handle($request, Closure $next)
     {
+        if(Auth::guest()){
+            return redirect('/login');
+        }else{
            if(Auth::user()->role == "admin"){
                 return $next($request);
            }
+           else{
+                return redirect('/home');
+           }
+        }
 
-        return redirect('/login');
 
     }
 }
