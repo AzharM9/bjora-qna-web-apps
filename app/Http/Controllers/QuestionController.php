@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Question;
+use App\Topic;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -22,8 +23,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $topics = DB::table('topics')->get();
-        return view('question',  ['topics' => $topics] );
+
     }
 
     /**
@@ -33,7 +33,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $topics = Topic::all();
+        return view('question',  ['topics' => $topics] );
     }
 
     /**
@@ -61,45 +62,66 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-
+        $user_id = Auth::user()->id;
+        $questions = DB::table('questions')
+            ->join('users','questions.user_id','=','users.id')
+            ->join('topics', 'questions.topic_id', '=', 'topics.id')
+            ->where('user_id','=', $user_id)
+            ->select('questions.id','questions.text','questions.created_at',
+                'users.id as user_id','users.profile_image','users.name as user_name',
+                'topics.name as topic_name')
+            ->paginate(10);
+        return view('my_question',  ['questions' => $questions]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Question  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $id)
     {
-        //
+        $topics = Topic::all();
+        return view('edit_question',  ['question' => $id, 'topics' => $topics]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Question  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Question $id)
     {
-        //
+        $model = $id;
+        $model->text = $request->text;
+        $model->topic_id = $request->topic;
+        $model->save();
+
+        return redirect('/my-question');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $this->validate($request,[
+            'id' => 'required|exists:questions,id',
+        ]);
+
+        $question = Question::find($request->id);
+        $question->delete();
+
+        return back();
     }
 }

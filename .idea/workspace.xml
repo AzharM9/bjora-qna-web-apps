@@ -2,25 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f9bb4ebc-fc0f-4304-978a-f082eb4a95ff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/seeds/TopicsTableSeeder.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/5df2ec6504814-pv-logo-icon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/5df32059af177-pv-logo-icon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/5df321ba6f37a-pv-logo-icon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/5df32324c49ee-river-china.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/5df3245550bfe-dedaunan.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/question.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/edit_question.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/my_question.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_07_120639_create_questions_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_07_120639_create_questions_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QuestionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/question.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/question.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/4HXS7cqsLRjU9yHSxZTFRt9K1gtV01SZVtduIv9Q" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -184,6 +176,11 @@
       <workItem from="1576151178585" duration="9325000" />
       <workItem from="1576164845799" duration="4423000" />
       <workItem from="1576195361001" duration="16174000" />
+      <workItem from="1576247536332" duration="2968000" />
+      <workItem from="1576289261373" duration="6324000" />
+      <workItem from="1576319831350" duration="16000" />
+      <workItem from="1576328243770" duration="11947000" />
+      <workItem from="1576380750013" duration="6160000" />
     </task>
     <servers />
   </component>
@@ -210,6 +207,10 @@
           <url>file://$PROJECT_DIR$/resources/js/app.js</url>
           <line>29</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/routes/web.php</url>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

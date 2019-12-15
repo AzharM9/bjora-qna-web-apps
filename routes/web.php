@@ -19,8 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/question', 'QuestionController@index')->name('question');
+Route::get('/my-question', 'QuestionController@show');
+Route::get('/question', 'QuestionController@create')->name('question');
 Route::post('/question', 'QuestionController@store')->name('question');
+Route::get('/question/edit/{id}', 'QuestionController@edit')->name('edit-question')->middleware('guard.edit.question');
+Route::post('/question/edit/{id}', 'QuestionController@update');
+Route::post('/question/destroy', 'QuestionController@destroy');
 
 Route::group([
     'prefix' => 'admin',
@@ -28,3 +32,6 @@ Route::group([
 ], function () {
     Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
 });
+
+
+

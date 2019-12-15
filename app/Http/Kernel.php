@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\GuardEditQuestion;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -60,7 +61,11 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+<<<<<<< HEAD
         'CheckRole' => \App\Http\Middleware\CheckRole::class,
+=======
+        'guard.edit.question' => GuardEditQuestion::class,
+>>>>>>> 16ca523a01bc5c8192114d1b291340869d8e2e95
     ];
 
     /**
