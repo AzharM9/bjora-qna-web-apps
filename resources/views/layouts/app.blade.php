@@ -61,6 +61,13 @@
         #app{
             font-size: 17px;
         }
+        .heading{
+            font-weight: bold;
+            background-color: white;
+            padding:20px;
+            border: solid 1px lightgrey;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -104,14 +111,15 @@
                         @else
                             <li class="nav-item dropdown">
 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a style="display:flex; align-items: center"id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <img class="profile-picture" src="{{ asset("images/".Auth::user()->profile_image) }}">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <p style="margin: 0 7px;">{{ Auth::user()->name }} </p>
+                                    <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">Profile</a>
-                                    <a class="dropdown-item" href="#">My Questions</a>
+                                    <a class="dropdown-item" href="{{url("/my-question")}}">My Questions</a>
                                     <a class="dropdown-item" href="#">Inbox</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

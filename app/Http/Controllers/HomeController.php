@@ -28,17 +28,13 @@ class HomeController extends Controller
     {
         $search = Input::get('search');
         if($search == ""){
-//            DB::table('questions')
-//                ->select('*')
-//                ->join('users','questions.user_id','=','users.id')
-//                ->get();
             $questions = DB::table('questions')
                 ->join('users','questions.user_id','=','users.id')
                 ->join('topics', 'questions.topic_id', '=', 'topics.id')
                 ->select('questions.id','questions.text','questions.created_at',
                     'users.id as user_id','users.profile_image','users.name as user_name',
                     'topics.name as topic_name')
-                ->paginate(5);
+                ->paginate(10);
         }else{
             $questions = DB::table('questions')
                 ->join('users','questions.user_id','=','users.id')
@@ -48,7 +44,7 @@ class HomeController extends Controller
                     'topics.name as topic_name')
                 ->where('questions.text','like','%'.$search.'%')
                 ->orWhere('users.name','like','%'.$search.'%')
-                ->paginate(5);
+                ->paginate(10);
             $questions = $questions->appends(['search'=>$search]);
         }
         return view('home', ['questions' => $questions]);

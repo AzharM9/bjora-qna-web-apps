@@ -25,18 +25,23 @@
                         <div>
                             <h2>{{$question->text}}</h2>
                         </div>
-                        <div style="display:flex; align-items: center;">
-                            <div>
-                                <img style="width: 50px; height: 50px; margin-right: 10px;"class="profile-picture" src="{{ asset("images/".$question->profile_image) }}">
+                        <div style="display:flex; align-items: center; justify-content: space-between">
+                            <div style="display:flex; align-items: center;">
+                                <div>
+                                    <img style="width: 50px; height: 50px; margin-right: 10px;"class="profile-picture" src="{{ asset("images/".$question->profile_image) }}">
+                                </div>
+                                <div>
+                                    <a href="{{ url("/profile/{$question->user_id}") }}">{{$question->user_name}}</a>
+                                    <div style="font-size: 14px"><strong>created at : </strong><small>{{$question->created_at}}</small></div>
+                                </div>
                             </div>
-                            <div>
-                                <a href="{{url('/profile/'.$question->user_id)}}">{{$question->user_name}}</a>
-                                <div style="font-size: 14px"><strong>created at : </strong><small>{{$question->created_at}}</small></div>
+
+                            <div style="margin-top: 15px">
+                                <a class="btn btn-success px-4" href="{{url("/question/{$question->id}")}}">Answer</a>
                             </div>
+
                         </div>
-                        <div style="margin-top: 15px">
-                            <a class="ask" href="{{url('/answer/'.$question->id)}}">Answer</a>
-                        </div>
+
                     </div>
                 </div>
             @endforeach
