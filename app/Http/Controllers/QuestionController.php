@@ -71,7 +71,7 @@ class QuestionController extends Controller
             ->join('users','questions.user_id','=','users.id')
             ->join('topics', 'questions.topic_id', '=', 'topics.id')
             ->where('user_id','=', $user_id)
-            ->select('questions.id','questions.text','questions.created_at',
+            ->select('questions.id','questions.text','questions.created_at', 'questions.open',
                 'users.id as user_id','users.profile_image','users.name as user_name',
                 'topics.name as topic_name')
             ->paginate(10);

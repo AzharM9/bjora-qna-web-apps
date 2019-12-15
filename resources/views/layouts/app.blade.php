@@ -68,6 +68,23 @@
             border: solid 1px lightgrey;
             border-radius: 4px;
         }
+        .open{
+            background-color: limegreen;
+            user-select: none;
+            padding: 0 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .closed{
+            background-color: red;
+            user-select: none;
+            padding: 0 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +102,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul style="display:flex; align-items: center;" class="navbar-nav mr-auto">
                         @auth
                             @if(\Illuminate\Support\Facades\Route::currentRouteName() != "question")
                                 <li class="nav-item">

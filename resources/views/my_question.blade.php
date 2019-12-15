@@ -4,14 +4,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <div style="margin-bottom: 20px;">
-                    <h2 class="heading">My Questions</h2>
+                <div style="margin-bottom: 20px; text-align: center">
+                    <h3 class="heading">My Questions</h3>
                 </div>
                 @foreach($questions as $question)
                     <div style="margin-bottom:15px;" class="card">
                         <div class="card-body">
-                            <div>
-                                <small>{{$question->topic_name}}</small>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div><small>{{$question->topic_name}}</small></div>
+                                <div class={{$question->open ? "open" : "closed"}}>{{$question->open ? "Open" : "Closed"}}</div>
                             </div>
                             <div>
                                 <h2>{{$question->text}}</h2>
@@ -44,7 +45,7 @@
                                                 </div>
                                                 <div class="modal-body" style="text-align: center">
                                                     <h4>
-                                                        Are you sure you want to delete this question?
+                                                        This action can't be undone, are you sure you want to delete this question?
                                                     </h4>
                                                 </div>
                                                 <div style="display:flex; align-items: center; justify-content: center;" class="modal-footer">
