@@ -34,9 +34,14 @@ Route::resource('profile', 'ProfileController')->middleware('auth');
 
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin',
 ], function () {
     Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
+
+    Route::get('/topic', 'TopicController@index')->middleware('CheckRole')->name('topic.index');
+    Route::post('/topic/create', 'TopicController@store')->middleware('CheckRole');
+    Route::get('/topic/edit/{id}','TopicCOntroller@edit')->middleware('CheckRole');
+    Route::post('/topic/edit/{id}','TopicCOntroller@update')->middleware('CheckRole');
+    Route::post('/topic/destroy', 'TopicController@destroy')->middleware('CheckRole');
 });
 
 
