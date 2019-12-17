@@ -63,20 +63,18 @@
 
                             <div class="form-group row">
                                 <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
-
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="male" type="radio" name="gender" value="Male" {{ $profile->gender == "male" ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="male">
-                                            Male
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" id="female" type="radio" name="gender" value="Female" {{ $profile->gender == "female" ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="female">
-                                            Female
-                                        </label>
-                                    </div>
+                                <div style="display: flex; flex-direction: column;" class="col-md-6">
+                                    <label style="margin:0; cursor:pointer;" class="form-check-inline">
+                                        <input style="margin-right: 5px;" id="gender" type="radio" class="@error('gender') is-invalid @enderror" name="gender" value="Male" @if($profile->gender == "Male") checked @endif required autocomplete="gender">Male
+                                    </label>
+                                    <label style="margin:0; cursor:pointer;" class="form-check-inline ">
+                                        <input style="margin-right: 5px;" id="gender" type="radio" class="@error('gender') is-invalid @enderror" name="gender" value="Female" @if($profile->gender == "Female") checked @endif required autocomplete="gender"> Female
+                                    </label>
+                                    @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -84,23 +82,41 @@
                                 <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="address" type="text" class="form-control" name="address" value="{{ $profile->address }}" required>
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $profile->address }}" required autocomplete="address">
+
+                                    @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="dob" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
+                                <label for="dob" class="col-md-4 col-form-label text-md-right">{{ __('Date of birth') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="dob" type="date" class="form-control" value="{{ $profile->dob }}" name="dob" required>
+                                    <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="{{ $profile->dob }}" name="dob" required autocomplete="dob">
+
+                                    @error('dob')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
+                                <label for="profile_picture" class="col-md-4 col-form-label text-md-right">{{ __('Profile picture') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="picture" class="form-control" type="file" name="picture">
+                                    <input id="profile_picture" type="file" class="form-control-file @error('profile_picture') is-invalid @enderror" name="profile_picture">
+
+                                    @error('profile_picture')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
 

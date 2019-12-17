@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -19,8 +22,15 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $inboxes = Inbox::where('to_user_id', auth()->id())->get();
-        return view('inbox.index', compact('inboxes'));
+        $user_id = Auth::user()->id;
+        $messages = DB::table('messages')
+            ->join('users as sender','messages.from_user_id','=','sender.id')
+            ->where('to_user_id','=', $user_id)
+            ->select('messages.id','messages.text', 'messages.created_at',
+                'sender.id as sender_id','sender.profile_image','sender.name as sender_name')
+            ->paginate(10);
+
+        return view('message.index', compact('messages'));
     }
 
     /**
@@ -42,17 +52,17 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'to_user_id' => 'required',
+            'receiver_id' => 'required',
             'message' => 'required'
         ]);
 
         $message = new Message;
-        $message->from_user_id = auth()->id();
-        $message->to_user_id = $request->to_user_id;
-        $message->message = $request->message;
+        $message->from_user_id = Auth::user()->id;
+        $message->to_user_id = $request->receiver_id;
+        $message->text = $request->message;
 
         $message->save();
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Message sent');
     }
 
     /**

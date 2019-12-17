@@ -49,9 +49,9 @@ class UserController extends Controller
             'role' => 'required'
         ]);
 
-        $picture = $request->file('picture');
-        $pictureName = Str::random(15).'.'.$picture->getClientOriginalExtension();
-        $picture->move(public_path().'/'.'files', $pictureName);
+        $file = $request->file('profile_picture');
+        $file_name = uniqid() . "-" . $file->getClientOriginalName();
+        $file->move(public_path('/images'),$file_name);
 
         $user = new User;
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->dob = $request->dob;
-        $user->picture = $pictureName;
+        $user->picture = $file_name;
 
         $user->save();
 
@@ -114,9 +114,9 @@ class UserController extends Controller
             'role' => 'required'
         ]);
 
-        $picture = $request->file('picture');
-        $pictureName = Str::random(15).'.'.$picture->getClientOriginalExtension();
-        $picture->move(public_path().'/'.'files', $pictureName);
+        $file = $request->file('profile_picture');
+        $file_name = uniqid() . "-" . $file->getClientOriginalName();
+        $file->move(public_path('/images'),$file_name);
 
         $user = User::findOrFail($id);
 
@@ -127,7 +127,7 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->dob = $request->dob;
-        $user->picture = $pictureName;
+        $user->picture = $file_name;
 
         $user->save();
 

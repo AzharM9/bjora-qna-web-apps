@@ -148,9 +148,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="{{url("/profile/".Auth::user()->id)}}">Profile</a>
                                     <a class="dropdown-item" href="{{url("/my-question")}}">My Questions</a>
-                                    <a class="dropdown-item" href="#">Inbox</a>
+                                    <a class="dropdown-item" href="{{url("/message/inbox")}}">Inbox</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -193,6 +193,10 @@
 
             setTimeout(showTime, 1000);
         })();
+
+        function closeMessage(){
+            document.getElementById("message").style.display = "none";
+        }
     </script>
 </body>
 </html>

@@ -32,7 +32,9 @@ Route::group(['prefix' => 'question'],function(){
 });
 
 Route::group(['prefix' => 'message'], function(){
-    //route message
+    Route::post('/create', 'MessageController@store');
+    Route::post('/delete/{id}', 'MessageController@destroy');
+    Route::get('/inbox', 'MessageController@index');
 });
 
 /*.Akses memerlukan Login terlebih dahulu.*/
