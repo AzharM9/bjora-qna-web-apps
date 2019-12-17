@@ -20,15 +20,22 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/my-question', 'QuestionController@show');
-Route::get('/question', 'QuestionController@create')->name('question');
-Route::post('/question', 'QuestionController@store')->name('question');
-Route::get('/question/edit/{id}', 'QuestionController@edit')->name('edit-question')->middleware('guard.edit.question');
-Route::post('/question/edit/{id}', 'QuestionController@update');
-Route::post('/question/destroy', 'QuestionController@destroy');
+
+
+Route::group(['prefix' => 'question'],function(){
+    Route::get('/', 'QuestionController@create')->name('question');
+    Route::post('/', 'QuestionController@store')->name('question');
+    Route::get('/edit/{id}', 'QuestionController@edit')->name('edit-question')->middleware('guard.edit.question');
+    Route::post('/edit/{id}', 'QuestionController@update');
+    Route::post('/destroy', 'QuestionController@destroy');
+    Route::get('/{id}', 'AnswerController@show')->name('answer');
+});
+
+Route::group(['prefix' => 'message'], function(){
+    //route message
+});
 
 /*.Akses memerlukan Login terlebih dahulu.*/
-Route::get('/question/{id}', 'QuestionController@show')->name('question.show');
-Route::resource('inboxes', 'MessageController')->middleware('auth');
 Route::resource('answer', 'AnswerController')->middleware('auth');
 Route::resource('profile', 'ProfileController')->middleware('auth');
 

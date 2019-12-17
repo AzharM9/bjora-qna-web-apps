@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Inbox;
+use App\User;
 use Illuminate\Http\Request;
 
-class InboxController extends Controller
+class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,7 @@ class InboxController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -41,12 +46,12 @@ class InboxController extends Controller
             'message' => 'required'
         ]);
 
-        $inbox = new Inbox;
-        $inbox->from_user_id = auth()->id();
-        $inbox->to_user_id = $request->to_user_id;
-        $inbox->message = $request->message;
+        $message = new Message;
+        $message->from_user_id = auth()->id();
+        $message->to_user_id = $request->to_user_id;
+        $message->message = $request->message;
 
-        $inbox->save();
+        $message->save();
         return redirect()->back();
     }
 
@@ -92,7 +97,7 @@ class InboxController extends Controller
      */
     public function destroy($id)
     {
-        Inbox::findOrFail($id)->delete();
+        Message::find($id)->delete();
 
         return redirect()->back();
     }
