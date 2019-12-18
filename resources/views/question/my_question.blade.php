@@ -41,29 +41,7 @@
                                 <form class="d-inline" action="{{ url("question/destroy") }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$question->id}}">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove-question">Delete</button>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="remove-question" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body" style="text-align: center">
-                                                    <h4>
-                                                        This action can't be undone, are you sure you want to delete this question?
-                                                    </h4>
-                                                </div>
-                                                <div style="display:flex; align-items: center; justify-content: center;" class="modal-footer">
-                                                    <button type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-success w-25 mr-4">Yes</button>
-                                                    <button type="button" class="btn btn-danger w-25" data-dismiss="modal">No</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-danger" >Delete</button>
                                 </form>
                             </div>
                         </div>
