@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -58,12 +59,12 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $profile = User::findOrFail($id);
+        //ini membuat user lain tidak bisa akses edit profile orang lain
+        $profile = User::findOrFail(Auth::user()->id);
         return view('profile.edit', compact('profile'));
     }
 
