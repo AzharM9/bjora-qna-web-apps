@@ -28,14 +28,15 @@ Route::post('/question/destroy', 'QuestionController@destroy');
 
 /*.Akses memerlukan Login terlebih dahulu.*/
 Route::get('/question/{id}', 'QuestionController@show')->name('question.show');
-Route::resource('inboxes', 'MessageController')->middleware('auth');
-Route::resource('answer', 'AnswerController')->middleware('auth');
-Route::resource('profile', 'ProfileController')->middleware('auth');
+// Route::resource('inboxes', 'MessageController')->middleware('auth');
+// Route::resource('answer', 'AnswerController')->middleware('auth');
+Route::get('/profile/{id}', 'ProfileController@index')->middleware('auth')->name('profile.index');
 
+//route admin
 Route::group([
     'prefix' => 'admin',
 ], function () {
-    Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
+    // Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
 
     Route::get('/topic', 'TopicController@index')->middleware('CheckRole')->name('topic.index');
     Route::post('/topic/create', 'TopicController@store')->middleware('CheckRole');

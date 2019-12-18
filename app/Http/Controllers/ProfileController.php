@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
@@ -14,12 +17,15 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $profile)
     {
         /* Mencari user yang sedang login */
+        // $profile = $user;
+        $profile = Auth::user();
+        // dd($profile);
+        // $profile = User::findOrFail(auth()->id());
 
-        $profile = User::findOrFail(auth()->id());
-        return view('profile.index', compact('profile'));
+        return view('profile.index', ['profile' => $profile]);
     }
 
     /**

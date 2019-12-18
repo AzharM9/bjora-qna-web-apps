@@ -131,7 +131,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Profile</a>
+                                    <a class="dropdown-item" href="{{ url('/profile/{id}') }}">Profile</a>
                                     <a class="dropdown-item" href="{{url("/my-question")}}">My Questions</a>
                                     <a class="dropdown-item" href="#">Inbox</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
