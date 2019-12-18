@@ -68,6 +68,23 @@
             border: solid 1px lightgrey;
             border-radius: 4px;
         }
+        .open{
+            background-color: limegreen;
+            user-select: none;
+            padding: 0 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .closed{
+            background-color: red;
+            user-select: none;
+            padding: 0 5px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +102,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul style="display:flex; align-items: center;" class="navbar-nav mr-auto">
                         @auth
                             @if(\Illuminate\Support\Facades\Route::currentRouteName() != "question")
                                 <li class="nav-item">
@@ -131,9 +148,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+{{-- <<<<<<< HEAD
                                     <a class="dropdown-item" href="{{ url('/profile/{id}') }}">Profile</a>
+======= --}}
+                                    <a class="dropdown-item" href="{{url("/profile/".Auth::user()->id)}}">Profile</a>
+{{-- >>>>>>> a82a71d7f63988c6b1409564451ba7c3772a7b97 --}}
                                     <a class="dropdown-item" href="{{url("/my-question")}}">My Questions</a>
-                                    <a class="dropdown-item" href="#">Inbox</a>
+                                    <a class="dropdown-item" href="{{url("/message/inbox")}}">Inbox</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -176,6 +197,10 @@
 
             setTimeout(showTime, 1000);
         })();
+
+        function closeMessage(){
+            document.getElementById("message").style.display = "none";
+        }
     </script>
 </body>
 </html>

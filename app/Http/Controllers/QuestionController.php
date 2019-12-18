@@ -34,7 +34,7 @@ class QuestionController extends Controller
     public function create()
     {
         $topics = Topic::all();
-        return view('question',  ['topics' => $topics] );
+        return view('question.question',  ['topics' => $topics] );
     }
 
     /**
@@ -71,11 +71,11 @@ class QuestionController extends Controller
             ->join('users','questions.user_id','=','users.id')
             ->join('topics', 'questions.topic_id', '=', 'topics.id')
             ->where('user_id','=', $user_id)
-            ->select('questions.id','questions.text','questions.created_at',
+            ->select('questions.id','questions.text','questions.created_at', 'questions.open',
                 'users.id as user_id','users.profile_image','users.name as user_name',
                 'topics.name as topic_name')
             ->paginate(10);
-        return view('my_question',  ['questions' => $questions]);
+        return view('question.my_question',  ['questions' => $questions]);
     }
 
     /**
@@ -87,7 +87,7 @@ class QuestionController extends Controller
     public function edit(Question $id)
     {
         $topics = Topic::all();
-        return view('edit_question',  ['question' => $id, 'topics' => $topics]);
+        return view('question.edit_question',  ['question' => $id, 'topics' => $topics]);
     }
 
     /**

@@ -58,7 +58,7 @@ class AnswerController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

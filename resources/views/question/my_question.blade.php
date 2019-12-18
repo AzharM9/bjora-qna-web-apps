@@ -4,14 +4,24 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <div style="margin-bottom: 20px;">
-                    <h2 class="heading">My Questions</h2>
-                </div>
+
+                @if(sizeof($questions) < 1)
+                    <div style="margin-bottom: 20px; text-align: center">
+                        <h2 class="heading">
+                            You have no questions
+                        </h2>
+                    </div>
+                @else
+                    <div style="margin-bottom: 20px; text-align: center">
+                        <h2 class="heading">My Questions</h2>
+                    </div>
+                @endif
                 @foreach($questions as $question)
                     <div style="margin-bottom:15px;" class="card">
                         <div class="card-body">
-                            <div>
-                                <small>{{$question->topic_name}}</small>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div><small>{{$question->topic_name}}</small></div>
+                                <div class={{$question->open ? "open" : "closed"}}>{{$question->open ? "Open" : "Closed"}}</div>
                             </div>
                             <div>
                                 <h2>{{$question->text}}</h2>
@@ -31,10 +41,10 @@
                                 <form class="d-inline" action="{{ url("question/destroy") }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="id" value="{{$question->id}}">
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalCenter">Delete</button>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove-question">Delete</button>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+                                    <div class="modal fade" id="remove-question" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -44,11 +54,11 @@
                                                 </div>
                                                 <div class="modal-body" style="text-align: center">
                                                     <h4>
-                                                        Are you sure you want to delete this question?
+                                                        This action can't be undone, are you sure you want to delete this question?
                                                     </h4>
                                                 </div>
                                                 <div style="display:flex; align-items: center; justify-content: center;" class="modal-footer">
-                                                    <button type="submit" class="btn btn-success w-25 mr-4">Yes</button>
+                                                    <button type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-success w-25 mr-4">Yes</button>
                                                     <button type="button" class="btn btn-danger w-25" data-dismiss="modal">No</button>
                                                 </div>
                                             </div>

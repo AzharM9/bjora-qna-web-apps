@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -57,19 +58,19 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $profile = User::findOrFail($id);
+        $profile = User::find($id);
         return view('profile.index', compact('profile'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $profile = User::findOrFail($id);
+        //ini membuat user lain tidak bisa akses edit profile orang lain
+        $profile = User::findOrFail(Auth::user()->id);
         return view('profile.edit', compact('profile'));
     }
 
@@ -89,12 +90,12 @@ class ProfileController extends Controller
             'gender' => 'required',
             'address' => 'required',
             'dob' => 'required|date',
-            'picture' => 'required|mimes:jpeg,png,jpg',
+            'profile_picture' => 'required|mimes:jpeg,png,jpg',
         ]);
 
-        $picture = $request->file('picture');
-        $pictureName = Str::random(15).'.'.$picture->getClientOriginalExtension();
-        $picture->move(public_path().'/'.'files', $pictureName);
+        $file = $request->file('profile_picture');
+        $file_name = uniqid() . "-" . $file->getClientOriginalName();
+        $file->move(public_path('/images'),$file_name);
 
         $user = User::findOrFail($id);
 
@@ -104,7 +105,7 @@ class ProfileController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->dob = $request->dob;
-        $user->picture = $pictureName;
+        $user->profile_image = $file_name;
 
         $user->save();
 
