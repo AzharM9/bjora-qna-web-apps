@@ -11,14 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+Route::get('/', function(){
+    return redirect('/home');
+});
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@index')->name('home');
 Route::get('/my-question', 'QuestionController@show');
 
 
@@ -59,6 +57,11 @@ Route::group([
     Route::get('/topic/edit/{id}','TopicCOntroller@edit')->middleware('CheckRole');
     Route::post('/topic/edit/{id}','TopicCOntroller@update')->middleware('CheckRole');
     Route::post('/topic/destroy', 'TopicController@destroy')->middleware('CheckRole');
+
+    Route::get('/user','UserController@index')->middleware('CheckRole')->name('user.index');
+    Route::get('/user/create','UserController@create')->middleware('CheckRole')->name('user.create');
+    Route::post('/user','UserController@store')->middleware('CheckRole')->name('user.store');
+
 });
 
 
