@@ -43,7 +43,7 @@
                                     <input type="hidden" name="id" value="{{$question->id}}">
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove-question">Delete</button>
 
-                                    <div class="row">
+                                    {{-- <div class="row">
                                             @foreach($answers as $answer)
                                                 <div class="col-md-12 mb-3">
                                                     <div class="card">
@@ -99,7 +99,7 @@
                                                 </form>
                                             </div>
                                             @endif
-                                        </div>
+                                        </div> --}}
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="remove-question" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">

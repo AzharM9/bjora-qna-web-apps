@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('user.update', [$user->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('PATCH')
+                            <input type="hidden" name="id" value="{{ $user->id }}">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -29,9 +29,9 @@
                                 <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
                                 <div class="col-md-6">
-                                    <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required autocomplete="role" autofocus>
-                                        <option value="admin" {{ $user->role == 'admin' ? 'checked' : '' }}>Admin</option>
-                                        <option value="member" {{ $user->role == 'member' ? 'checked' : '' }}>Member</option>
+                                    <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ $user->role }}" required autocomplete="role" autofocus>
+                                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                                        <option value="member" {{ $user->role == 'member' ? 'selected' : '' }}>Member</option>
                                     </select>
 
                                     @error('role')
@@ -83,15 +83,13 @@
 
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="male" type="radio" name="gender" value="Male" {{ $user->gender == "male" ? 'checked' : '' }}>
                                         <label class="form-check-label" for="male">
-                                            Male
+                                            <input class="form-check-input" id="male" type="radio" name="gender" value="Male" {{ $user->gender == "male" ? 'checked' : '' }}>Male
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" id="female" type="radio" name="gender" value="Female" {{ $user->gender == "female" ? 'checked' : '' }}>
                                         <label class="form-check-label" for="female">
-                                            Female
+                                            <input class="form-check-input" id="female" type="radio" name="gender" value="Female" {{ $user->gender == "female" ? 'checked' : '' }}>Female
                                         </label>
                                     </div>
                                 </div>
@@ -114,10 +112,10 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="picture" class="col-md-4 col-form-label text-md-right"></label>
+                                <label for="picture" class="col-md-4 col-form-label text-md-right">Current Profile Picture</label>
                                 <div class="col-md-6">
-                                    @if ($user->picture)
-                                        <img src="{{ asset('files/'. $user->picture) }}" width="40%">
+                                    @if ($user->profile_image)
+                                        <img src="{{ asset('images/'. $user->profile_image) }}" width="40%">
                                     @else
                                         <p>No image found</p>
                                     @endif
@@ -129,8 +127,8 @@
                                 <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="picture" type="file" name="picture">
-                                    <input type="hidden" name="hidden_picture" value="{{ $user->picture }}">
+                                    <input id="profile_picture" type="file" name="profile_picture">
+                                    <input type="hidden" value="{{ $user->picture }}">
                                 </div>
                             </div>
 

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-// use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash;
 // use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -48,7 +48,7 @@ class UserController extends Controller
             'profile_picture' => ['required','mimes:jpeg,png,jpg'],
             'role' => ['required'],
         ]);
-            // dd($request);
+
         $file = $request->file('profile_picture');
         $file_name = uniqid() . "-" . $file->getClientOriginalName();
         $file->move(public_path('/images'),$file_name);
@@ -56,7 +56,7 @@ class UserController extends Controller
         $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],
-            'password' => $request['password'],
+            'password' => Hash::make($request['password']),
             'gender' => $request['gender'],
             'address' => $request['address'],
             'dob' => $request['dob'],
@@ -65,7 +65,6 @@ class UserController extends Controller
         ]);
 
         $user->save();
-            // dd($user);
 
         return redirect('/admin/user');
     }
@@ -87,10 +86,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request)
     {
-        // $user = User::findOrFail($id);
-        // return view('user.edit', compact('user'));
+        $user = User::find($request->id);
+        // dd($user);
+        return view('user.edit', compact('user'));
     }
 
     /**
@@ -141,12 +141,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
         /* delete user */
-
-        User::findOrFail($id)->delete();
-
-        // return redirect()->back();
+        $user = User::find($request->id);
+        $user->delete();
+        return redirect('/admin/user');
     }
 }
