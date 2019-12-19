@@ -37,12 +37,6 @@ Route::group(['prefix' => 'message'], function(){
 });
 
 /*.Akses memerlukan Login terlebih dahulu.*/
-// <<<<<<< HEAD
-// Route::get('/question/{id}', 'QuestionController@show')->name('question.show');
-// // Route::resource('inboxes', 'MessageController')->middleware('auth');
-// // Route::resource('answer', 'AnswerController')->middleware('auth');
-// Route::get('/profile/{id}', 'ProfileController@index')->middleware('auth')->name('profile.index');
-// =======
 Route::resource('answer', 'AnswerController')->middleware('auth');
 Route::resource('profile', 'ProfileController')->middleware('auth');
 
@@ -51,7 +45,6 @@ Route::resource('profile', 'ProfileController')->middleware('auth');
 Route::group([
     'prefix' => 'admin',
 ], function () {
-    // Route::get('/newUser', 'AdminController@createUser')->middleware('CheckRole');
 
     Route::get('/topic', 'TopicController@index')->middleware('CheckRole')->name('topic.index');
     Route::post('/topic/create', 'TopicController@store')->middleware('CheckRole');
@@ -66,6 +59,8 @@ Route::group([
     Route::post('/user/edit/{id}', 'UserController@update')->middleware('CheckRole')->name('user.update');
     Route::post('/topic/destroy', 'UserController@destroy')->middleware('CheckRole')->name('user.destroy');
 
+    Route::get('/question', 'QuestionController@manage')->middleware('CheckRole')->name('question.manage');
+    Route::post('/question/destroy', 'QuestionController@destroy')->middleware('CheckRole');
 });
 
 

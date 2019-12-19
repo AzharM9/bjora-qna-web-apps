@@ -144,4 +144,17 @@ class QuestionController extends Controller
 
         return back();
     }
+
+    //view manage question utk admin
+    public function manage()
+    {
+        $questions = DB::table('questions')
+                ->join('users','questions.user_id','=','users.id')
+                ->join('topics', 'questions.topic_id', '=', 'topics.id')
+                ->select('questions.id','questions.text as question_text', 'questions.open'
+                ,'questions.created_at','users.id as user_id','users.profile_image','users.name as user_name',
+                    'topics.name as topic_name')->paginate(3);
+
+                    return view('question.manage', ['question' => $questions]);
+    }
 }
