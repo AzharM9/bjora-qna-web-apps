@@ -40,10 +40,10 @@
                                             <td>{{ $user->dob }}</td>
                                             <td><img src="{{ asset('images/'.$user->profile_image) }}" width="50" heigh="50"></td>
                                             <td>
-                                                {{-- <a href="{{ route('user.edit', [$user->id]) }}" class="btn btn-secondary btn-sm">Edit</a> --}}
-                                                {{-- <form method="POST" style="display: inline-block;" action="{{ route('user.destroy', [$user->id]) }}"> --}}
+                                                <a href="{{ route('user.edit', [$user->id]) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                                <form method="POST" style="display: inline-block;" action="{{ route('user.destroy', [$user->id]) }}">
                                                     @csrf
-                                                    @method('DELETE')
+                                                    <input type="hidden" name="id" value="{{ $user->id }}">
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
                                             </td>
