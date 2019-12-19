@@ -99,6 +99,11 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $id)
     {
+        $this->validate($request,[
+            'text' => 'required',
+            'topic' => 'required',
+        ]);
+
         $model = $id;
         $model->text = $request->text;
         $model->topic_id = $request->topic;
@@ -121,6 +126,21 @@ class QuestionController extends Controller
 
         $question = Question::find($request->id);
         $question->delete();
+
+        return back();
+    }
+
+    /**
+     * Update status from close to open, and vice versa
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleClose(Request $request)
+    {
+        $question = Question::find($request->id);
+        $question->open = 1;
+        $question->save();
 
         return back();
     }

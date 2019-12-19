@@ -43,6 +43,7 @@
                                     <input type="hidden" name="id" value="{{$question->id}}">
                                     <button type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-danger" >Delete</button>
                                 </form>
+                                <form action="{{ url() }}"></form>
                             </div>
                         </div>
                     </div>
