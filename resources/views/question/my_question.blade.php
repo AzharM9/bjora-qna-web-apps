@@ -20,8 +20,22 @@
                     <div style="margin-bottom:15px;" class="card">
                         <div class="card-body">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <div><small>{{$question->topic_name}}</small></div>
-                                <div class={{$question->open ? "open" : "closed"}}>{{$question->open ? "Open" : "Closed"}}</div>
+                                <div style="display: flex; align-items: center;">
+                                    <small style="margin-right: 15px;">{{$question->topic_name}}</small>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    @if($question->open == 1)
+                                        <form action="{{ url("/question/close") }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$question->id}}">
+                                            <button style="padding: 0 10px; font-size: 12px; margin-right: 10px;" type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-dark" >
+                                                Close question
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <div class={{$question->open ? "open" : "closed"}}>{{$question->open ? "Open" : "Closed"}}</div>
+                                </div>
+
                             </div>
                             <div>
                                 <h2>{{$question->text}}</h2>
@@ -43,7 +57,6 @@
                                     <input type="hidden" name="id" value="{{$question->id}}">
                                     <button type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-danger" >Delete</button>
                                 </form>
-                                <form action="{{ url() }}"></form>
                             </div>
                         </div>
                     </div>

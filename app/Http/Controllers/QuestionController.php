@@ -131,7 +131,7 @@ class QuestionController extends Controller
     }
 
     /**
-     * Update status from close to open, and vice versa
+     * Update status from open to close
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -139,7 +139,7 @@ class QuestionController extends Controller
     public function toggleClose(Request $request)
     {
         $question = Question::find($request->id);
-        $question->open = 1;
+        $question->open = 0;
         $question->save();
 
         return back();
