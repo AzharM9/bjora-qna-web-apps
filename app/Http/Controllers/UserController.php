@@ -52,7 +52,6 @@ class UserController extends Controller
         $file = $request->file('profile_picture');
         $file_name = uniqid() . "-" . $file->getClientOriginalName();
         $file->move(public_path('/images'),$file_name);
-
         $user = User::create([
             'name' => $request['name'],
             'email' => $request['email'],

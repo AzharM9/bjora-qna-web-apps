@@ -71,7 +71,7 @@
         .open{
             background-color: limegreen;
             user-select: none;
-            padding: 0 5px;
+            padding: 0 10px;
             border-radius: 5px;
             font-size: 12px;
             color: white;
@@ -80,7 +80,7 @@
         .closed{
             background-color: red;
             user-select: none;
-            padding: 0 5px;
+            padding: 0 10px;
             border-radius: 5px;
             font-size: 12px;
             color: white;

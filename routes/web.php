@@ -25,6 +25,7 @@ Route::group(['prefix' => 'question'],function(){
     Route::post('/', 'QuestionController@store')->name('question');
     Route::get('/edit/{id}', 'QuestionController@edit')->name('edit-question')->middleware('guard.edit.question');
     Route::post('/edit/{id}', 'QuestionController@update');
+    Route::post('/close', 'QuestionController@toggleClose');
     Route::post('/destroy', 'QuestionController@destroy');
     Route::get('/{id}', 'AnswerController@show')->name('answer');
 });
