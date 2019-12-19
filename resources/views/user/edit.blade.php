@@ -84,12 +84,12 @@
                                 <div class="col-md-6">
                                     <div class="form-check">
                                         <label class="form-check-label" for="male">
-                                            <input class="form-check-input" id="male" type="radio" name="gender" value="Male" {{ $user->gender == "male" ? 'checked' : '' }}>Male
+                                            <input class="form-check-input" id="male" type="radio" name="gender" value="Male" @if($user->gender == "Male") checked @endif required autocomplete="gender">Male
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <label class="form-check-label" for="female">
-                                            <input class="form-check-input" id="female" type="radio" name="gender" value="Female" {{ $user->gender == "female" ? 'checked' : '' }}>Female
+                                            <input class="form-check-input" id="female" type="radio" name="gender" value="Female" @if($user->gender == "Female") checked @endif required autocomplete="gender">Female
                                         </label>
                                     </div>
                                 </div>

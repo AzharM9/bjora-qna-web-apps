@@ -99,26 +99,26 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $id)
     {
         /* update data */
 
         $this->validate($request, [
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|unique:users,email,'.$id.',id',
-            'password' => 'required|string|min:6|alpha_num|confirmed',
-            'gender' => 'required',
-            'address' => 'required',
-            'dob' => 'required|date',
-            'picture' => 'required|mimes:jpeg,png,jpg',
-            'role' => 'required'
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6', 'confirmed', 'alpha_num'],
+            'gender' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'dob' => ['required', 'date'],
+            'profile_picture' => ['required','mimes:jpeg,png,jpg'],
+            'role' => ['required'],
         ]);
-
+            $user = $id;
         $file = $request->file('profile_picture');
         $file_name = uniqid() . "-" . $file->getClientOriginalName();
         $file->move(public_path('/images'),$file_name);
 
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($request->id);
 
         $user->name = $request->name;
         $user->role = $request->role;
@@ -127,11 +127,11 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->address = $request->address;
         $user->dob = $request->dob;
-        $user->picture = $file_name;
+        $user->profile_image = $file_name;
 
         $user->save();
 
-        // return redirect()->route('user.index');
+        return redirect('/admin/user');
     }
 
     /**
