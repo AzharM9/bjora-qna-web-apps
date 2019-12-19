@@ -14,7 +14,7 @@
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -82,15 +82,15 @@
 
                                 <div class="col-md-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" id="male" type="radio" name="gender" value="male" checked>
+                                        {{-- <input class="form-check-input" id="gender" type="radio" name="gender" value="Male" checked> --}}
                                         <label class="form-check-label" for="male">
-                                            Male
+                                            <input style="margin-right: 5px;" id="gender" type="radio" class="@error('gender') is-invalid @enderror" name="gender" value="Male" @if(old('gender') == 'Male') checked @endif required autocomplete="gender">Male
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" id="female" type="radio" name="gender" value="female">
+                                        {{-- <input class="form-check-input" id="gender" type="radio" name="gender" value="Female"> --}}
                                         <label class="form-check-label" for="female">
-                                            Female
+                                            <input style="margin-right: 5px;" id="gender" type="radio" class="@error('gender') is-invalid @enderror" name="gender" value="Female" @if(old('gender') == 'Female') checked @endif required autocomplete="gender"> Female
                                         </label>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                                 <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" required autocomplete="address">
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address">
 
                                     @error('address')
                                     <span class="invalid-feedback" role="alert">
@@ -114,7 +114,7 @@
                                 <label for="dob" class="col-md-4 col-form-label text-md-right">{{ __('Birthday') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" required autocomplete="dob">
+                                    <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" value="{{ old('dob') }}" name="dob" required autocomplete="dob">
 
                                     @error('dob')
                                     <span class="invalid-feedback" role="alert">
@@ -128,7 +128,7 @@
                                 <label for="picture" class="col-md-4 col-form-label text-md-right">{{ __('Profile Picture') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="picture" type="file" class="form-control @error('picture') is-invalid @enderror" name="picture" required autocomplete="picture">
+                                    <input id="profile_picture" type="file" class="form-control-file @error('picture') is-invalid @enderror" name="profile_picture">
 
                                     @error('picture')
                                     <span class="invalid-feedback" role="alert">

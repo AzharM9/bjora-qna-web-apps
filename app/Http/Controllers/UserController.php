@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -14,10 +14,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $users)
     {
         $users = User::paginate(10);
-        return view('user.index', compact('users'));
+        return view('user.index', ['users' => $users]);
     }
 
     /**
@@ -39,34 +39,35 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string|max:100',
-            'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|min:6|alpha_num|confirmed',
-            'gender' => 'required',
-            'address' => 'required',
-            'dob' => 'required|date',
-            'picture' => 'required|mimes:jpeg,png,jpg',
-            'role' => 'required'
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6', 'confirmed', 'alpha_num'],
+            'gender' => ['required', 'string'],
+            'address' => ['required', 'string'],
+            'dob' => ['required', 'date'],
+            'profile_picture' => ['required','mimes:jpeg,png,jpg'],
+            'role' => ['required'],
         ]);
-
+            // dd($request);
         $file = $request->file('profile_picture');
         $file_name = uniqid() . "-" . $file->getClientOriginalName();
         $file->move(public_path('/images'),$file_name);
 
-        $user = new User;
-
-        $user->name = $request->name;
-        $user->role = $request->role;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->gender = $request->gender;
-        $user->address = $request->address;
-        $user->dob = $request->dob;
-        $user->picture = $file_name;
+        $user = User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'gender' => $request['gender'],
+            'address' => $request['address'],
+            'dob' => $request['dob'],
+            'profile_image' => $file_name,
+            'role' => $request['role'],
+        ]);
 
         $user->save();
+            // dd($user);
 
-        return redirect()->route('user.index');
+        return redirect('/admin/user');
     }
 
     /**
@@ -86,10 +87,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        $user = User::findOrFail($id);
-        return view('user.edit', compact('user'));
+        // $user = User::findOrFail($id);
+        // return view('user.edit', compact('user'));
     }
 
     /**
@@ -131,7 +132,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('user.index');
+        // return redirect()->route('user.index');
     }
 
     /**
@@ -146,6 +147,6 @@ class UserController extends Controller
 
         User::findOrFail($id)->delete();
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 }

@@ -116,7 +116,7 @@
                                         Manage
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">Manage User</a>
+                                        <a class="dropdown-item" href="{{ route('user.index') }}">Manage User</a>
                                         <a class="dropdown-item" href="#">Manage Question</a>
                                         <a class="dropdown-item" href="{{ route('topic.index') }}">Manage Topic</a>
                                     </div>
@@ -148,7 +148,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+{{-- <<<<<<< HEAD
+                                    <a class="dropdown-item" href="{{ url('/profile/{id}') }}">Profile</a>
+======= --}}
                                     <a class="dropdown-item" href="{{url("/profile/".Auth::user()->id)}}">Profile</a>
+{{-- >>>>>>> a82a71d7f63988c6b1409564451ba7c3772a7b97 --}}
                                     <a class="dropdown-item" href="{{url("/my-question")}}">My Questions</a>
                                     <a class="dropdown-item" href="{{url("/message/inbox")}}">Inbox</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"

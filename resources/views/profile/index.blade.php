@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-md-3">
                                 @if(!Auth::guest() && Auth::id() == $profile->id)
-                                    <p><a href="{{ route('profile.edit', [$profile->id]) }}" class="btn btn-primary">Update Profile</a></p>
+                                    {{-- <p><a href="{{ route('profile.edit', [$profile->id]) }}" class="btn btn-primary">Update Profile</a></p> --}}
                                 @endif
                             </div>
 
