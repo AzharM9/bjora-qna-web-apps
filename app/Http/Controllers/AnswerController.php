@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Question;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -56,9 +58,22 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Question $id)
     {
-
+        // $id = Question::find($request->id);
+        // dd($id);
+        // $topic_id = $id;
+        $answers = DB::table('answers')
+            ->join('questions','answers.question_id','=','questions.id')
+            // ->join('users', 'answers.user_id', '=', 'users.id')
+            ->join('topics','questions.topic_id', '=', 'topics.id')
+            ->where('answers.question_id','=', 'questions.id')
+            ->select('answers.id','answers.text','answers.created_at',
+                'questions.open', 'questions.text as question_text',
+                'questions.user_id as user_id','users.profile_image','users.name as user_name',
+                )->get();
+            dd($answers);
+                // return view('question.answer', ['answer' => $answers]);
     }
 
     /**

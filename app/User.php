@@ -42,7 +42,7 @@ class User extends Authenticatable
     }
 
     public function answers() {
-        return $this->hasMany('App\Answer');
+        return $this->hasManyThrough('App\Question','App\Answer');
     }
 
     public function questions() {

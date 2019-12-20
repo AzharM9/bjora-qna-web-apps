@@ -37,7 +37,7 @@
                             </div>
 
                             <div style="margin-top: 15px">
-                                <a class="btn btn-success px-4" href="{{url("/question/{$question->id}")}}">Answer</a>
+                                <a class="btn btn-success px-4" href="{{url("/question/{$question->id}/answers")}}">Answer</a>
                             </div>
 
                         </div>
