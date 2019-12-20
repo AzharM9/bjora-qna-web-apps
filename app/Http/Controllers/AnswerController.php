@@ -107,7 +107,7 @@ class AnswerController extends Controller
         $model->text = $request->answer;
         $model->save();
 
-        return redirect('/');
+        return redirect('/question/'.$model->question_id);
     }
 
     /**
