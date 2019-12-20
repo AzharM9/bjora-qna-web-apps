@@ -8,41 +8,42 @@
     <div class="card">
     <div class="card-body">
     <div class="row">
-                                            <div class="col-md-6"><p>{{ $question->topic->name }}</p></div>
-                                            <div class="col-md-6 text-right">
-                                                @if($question->user_id == Auth::id() && $question->status != 'closed')
-                                                    <form method="POST" style="display: inline-block;" action="{{ route('question.update', [$question->id]) }}">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Close</button>
-                                                    </form>
-                                                @endif
 
-                                                @if($question->status == 'open')
-                                                    <span class="badge badge-success">{{ ucwords($question->status) }}</span>
-                                                @else
-                                                    <span class="badge badge-danger">{{ ucwords($question->status) }}</span>
-                                                @endif
-                                            </div>
-                                            <div class="col-md-12"><h4 class="pb-2">{{ $question->question }}</h4></div>
-                                        </div>
-        <div class="row">
-        <div class="row pb-3">
-                                            <div class="col-md-1">
-                                                <img src="{{ asset('files/'.$question->user->picture) }}" width="36" height="36">
-                                            </div>
-                                            <div class="col-md-11">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <a href="{{ route('profile.show', [$question->user->id]) }}">{{ $question->user->name }}</a>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        {{ $question->created_at }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-        {{$question->text}}
+        <div style="margin-bottom:15px;" class="card">
+            <div class="card-body">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <small style="margin-right: 15px;">{{$question->topic_name}}</small>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        @if($question->open == 1 && Auth::user()->id == $question->user_id)
+                            <form action="{{ url("/question/close") }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$question->id}}">
+                                <button style="padding: 0 10px; font-size: 12px; margin-right: 10px;" type="submit" onclick="this.style.pointerEvents='none';" class="btn btn-dark" >
+                                    Close question
+                                </button>
+                            </form>
+                        @endif
+                        <div class={{$question->open ? "open" : "closed"}}>{{$question->open ? "Open" : "Closed"}}</div>
+                    </div>
+
+                </div>
+                <div>
+                    <h2>{{$question->text}}</h2>
+                </div>
+                <div style="display:flex; align-items: center;">
+                    <div>
+                        <img style="width: 50px; height: 50px; margin-right: 10px;"class="profile-picture" src="{{ asset("images/".$question->profile_image) }}">
+                    </div>
+                    <div>
+                        <a href="{{ url("/profile/{$question->user_id}") }}">{{$question->user_name}}</a>
+                        <div style="font-size: 14px"><strong>created at : </strong><small>{{$question->created_at}}</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         @foreach($answers as $answer)
 
             <div class="col-md-12 mb-3">

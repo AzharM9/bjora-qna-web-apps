@@ -73,7 +73,17 @@ class AnswerController extends Controller
                 'users.id as user_id','users.profile_image','users.name as user_name',
                 'topics.name as topic_name')
             ->paginate(10);
-        $question = Question::find($id);
+        $question = DB::table('questions')
+            ->join('users','questions.user_id','=','users.id')
+            ->join('topics', 'questions.topic_id', '=', 'topics.id')
+            ->where('questions.id','=', $id)
+            ->select('questions.id','questions.text','questions.created_at', 'questions.open',
+                'users.id as user_id','users.profile_image','users.name as user_name',
+                'topics.name as topic_name')
+            ->first();
+
+//        $question = Question::find($id);
+
         return view('answer', ['answers' => $answers , "question" => $question] );
 
     }
