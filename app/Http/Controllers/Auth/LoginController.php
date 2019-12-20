@@ -22,14 +22,14 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
+     *  redirect user stelah login
      * @var string
      */
     protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
-     *
+     *buat instance controller
      * @return void
      */
     public function __construct()

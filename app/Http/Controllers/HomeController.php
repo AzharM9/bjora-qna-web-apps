@@ -24,7 +24,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   /*method ini utk menarik data semua question yang dibuat oleh user lalu ditampilkan di url /home */
         $search = Input::get('search');
         if($search == ""){
             $questions = DB::table('questions')

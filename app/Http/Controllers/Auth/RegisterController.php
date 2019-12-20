@@ -30,14 +30,14 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after registration.
-     *
+     *  redirect user stelah register
      * @var string
      */
     protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
-     *
+     *membuat instance dri controller tersebut
      * @return void
      */
     public function __construct(Request $request)
@@ -48,7 +48,7 @@ class RegisterController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
-     *
+     *validasi utk data yg diinput diregister
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -71,7 +71,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
+     *  membuat user dengan data yang telah divalidasikan tadi
      * @param  array  $data
      * @param  Request
      * @return \App\User

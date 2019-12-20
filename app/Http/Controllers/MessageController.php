@@ -21,7 +21,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   /* */
         $user_id = Auth::user()->id;
         $messages = DB::table('messages')
             ->join('users as sender','messages.from_user_id','=','sender.id')

@@ -39,7 +39,7 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   /*menyimpan data yang sudah di buat dari form answer*/
         /* Store data */
 
         $this->validate($request,[
@@ -62,7 +62,7 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Question $id)
-    {
+    {   /* redirect ke page answer yang menampilkan data question beserta answer yang menjawab question tersebut*/
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
             ->join('users', 'answers.user_id', '=', 'users.id')
@@ -85,7 +85,7 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    {   /*method ini utk memunculkan form utk mengedit answer yang sudah dibuat (answer yang sebelumnya juga ditampilkan di form)*/
         $answer = Answer::find($id);
         return view('edit_answer', ['answer' => $answer] );
     }
@@ -98,7 +98,7 @@ class AnswerController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   /*method ini utk menstore data dari form edit yang sudah diisi tadi */
         $this->validate($request,[
             'answer' => 'required',
         ]);
