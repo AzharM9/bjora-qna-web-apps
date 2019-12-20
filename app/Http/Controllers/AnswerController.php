@@ -87,7 +87,7 @@ class AnswerController extends Controller
     public function edit($id)
     {
         $answer = Answer::find($id);
-        return view('edit_answer', ['answers' => $answer] );
+        return view('edit_answer', ['answer' => $answer] );
     }
 
     /**

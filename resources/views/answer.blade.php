@@ -41,11 +41,7 @@
                                     </form>
                                 </div>
                                 <div class="col-md-12">
-                                    <form method="post" action="{{ route('answer.update', [$answer->id]) }}">
-                                        @csrf
-                                        @method('UPADTE')
-                                        <button type="submit" class="btn btn-link btn-sm">Update Comment</button>
-                                    </form>
+                                    <a href="{{ route('answer.edit', $answer->id) }}">update comment</a>
                                 </div>
                             @else
                             @endif

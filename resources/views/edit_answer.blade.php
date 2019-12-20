@@ -6,8 +6,9 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    <form class="question-form" action="{{ route('answer.update') }}" name="question-form" method="POST" enctype="multipart/form-data">
+                    <form class="question-form" action="{{ route('answer.update', [$answer->id]) }}" name="question-form" method="PUT" enctype="multipart/form-data">
                     {{csrf_field()}}
+                        @method('UPDATE')
                     <div style="text-align: center;">
                         <h3>Edit Answer</h3>
                     </div>
