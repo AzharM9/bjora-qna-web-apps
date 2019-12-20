@@ -46,10 +46,10 @@ class AnswerController extends Controller
             'answer' => 'required'
         ]);
 
-        $answer = new Answer;
+        $answer = new Answer();
         $answer->user_id = auth()->id();
         $answer->question_id = $request->question_id;
-        $answer->answer = $request->answer;
+        $answer->text = $request->answer;
 
         $answer->save();
         return redirect()->back();
@@ -65,15 +65,16 @@ class AnswerController extends Controller
     {
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
-            ->join('users', 'answers.user_id', '=', 'users.id')
+            ->join('users', 'questions.user_id', '=', 'users.id')
             ->join('topics','questions.topic_id', '=', 'topics.id')
             ->where('answers.question_id','=', $id)
             ->select('answers.id','answers.text','answers.created_at',
-                'questions.open', 'questions.text as question_text',
+                'questions.open as status', 'questions.text as question_text',
                 'users.id as user_id','users.profile_image','users.name as user_name',
                 'topics.name as topic_name')
             ->paginate(10);
-            return view('answer', ['answers' => Answer::all()] );
+        $question = Question::find($id);
+        return view('answer', ['answers' => $answers , "question" => $question] );
 
     }
 
