@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Question;
+use App\Topic;
 use App\Answer;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class AnswerController extends Controller
 {
@@ -59,14 +63,24 @@ class AnswerController extends Controller
      */
     public function show($id)
     {
-        //
+        $answers = DB::table('answers')
+            ->join('questions','answers.question_id','=','questions.id')
+            ->join('users', 'answers.user_id', '=', 'users.id')
+            ->join('topics','questions.topic_id', '=', 'topics.id')
+            ->where('answers.question_id','=', $id)
+            ->select('answers.id','answers.text','answers.created_at',
+                'questions.open', 'questions.text as question_text',
+                'users.id as user_id','users.profile_image','users.name as user_name',
+                'topics.name as topic_name')
+            ->paginate(10);
+            return view('answer', ['answers' => Answer::all()] );
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $id     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
