@@ -81,11 +81,13 @@ class AnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $answer = Answer::find($id);
+        return view('edit_answer', ['answers' => $answer] );
     }
 
     /**
@@ -97,7 +99,15 @@ class AnswerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'answer' => 'required',
+        ]);
+
+        $model = Answer::find($id);
+        $model->text = $request->answer;
+        $model->save();
+
+        return redirect('/');
     }
 
     /**

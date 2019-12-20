@@ -5,13 +5,12 @@
         {{$question->text}}
         @foreach($answers as $answer)
 
-            <img src="{{ asset('images/'.$answer->profile_image) }}" width="36" height="36">
             <div class="col-md-12 mb-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row pb-3">
                             <div class="col-md-1">
-
+                                <img src="{{ asset('images/'.$answer->profile_image) }}" width="36" height="36">
                             </div>
                             <div class="col-md-11">
                                 <div class="row">
@@ -41,7 +40,7 @@
                 </div>
             </div>
         @endforeach
-        @if(!Auth::guest() && $question->open != 'closed' &&)
+        @if(!Auth::guest() && $question->open != 'closed')
             <div class="col-md-12">
                 <form method="POST" action="{{ route('answer.store') }}">
                     @csrf
