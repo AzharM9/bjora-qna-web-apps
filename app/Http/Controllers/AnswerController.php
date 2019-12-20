@@ -61,7 +61,7 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Question $id)
+    public function show($id)
     {   /* redirect ke page answer yang menampilkan data question beserta answer yang menjawab question tersebut*/
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
@@ -81,8 +81,8 @@ class AnswerController extends Controller
                 'users.id as user_id','users.profile_image','users.name as user_name',
                 'topics.name as topic_name')
             ->first();
+            // dd($question);
 
-//        $question = Question::find($id);
 
         return view('answer', ['answers' => $answers , "question" => $question] );
 
