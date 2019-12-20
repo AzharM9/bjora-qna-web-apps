@@ -36,7 +36,8 @@ Route::group(['prefix' => 'message'], function(){
 });
 
 /*.Akses memerlukan Login terlebih dahulu.*/
-Route::resource('answer', 'AnswerController')->middleware('auth');
+// Route::resource('answer', 'AnswerController')->middleware('auth');
+Route::get('/question/{id}/answers', 'AnswerController@show');
 Route::resource('profile', 'ProfileController')->middleware('auth');
 
 

@@ -61,7 +61,7 @@ class AnswerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, Question $id)
     {
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
