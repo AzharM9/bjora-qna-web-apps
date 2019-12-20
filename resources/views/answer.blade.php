@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
+   <div class ="container">
+
+    <div class = "row justify-content-center">
+    <div class="col-md-8">
+    <div class="card">
+    <div class="card-body">
+
+        <div class="row">
         {{$question->text}}
         @foreach($answers as $answer)
 
@@ -33,6 +40,13 @@
                                         <button type="submit" class="btn btn-link btn-sm">Delete Comment</button>
                                     </form>
                                 </div>
+                                <div class="col-md-12">
+                                    <form method="post" action="{{ route('answer.update', [$answer->id]) }}">
+                                        @csrf
+                                        @method('UPADTE')
+                                        <button type="submit" class="btn btn-link btn-sm">Update Comment</button>
+                                    </form>
+                                </div>
                             @else
                             @endif
                         </div>
@@ -40,7 +54,7 @@
                 </div>
             </div>
         @endforeach
-        @if(!Auth::guest() && $question->open != 'closed')
+        @if(!Auth::guest() && $question->open != 'closed' )
             <div class="col-md-12">
                 <form method="POST" action="{{ route('answer.store') }}">
                     @csrf
@@ -58,6 +72,11 @@
                     </div>
                 </form>
             </div>
-        @endif
+             @endif
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 @endsection
