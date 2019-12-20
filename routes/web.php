@@ -19,7 +19,6 @@ Route::get('/', function(){
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/my-question', 'QuestionController@show');
 
-
 Route::group(['prefix' => 'question'],function(){
     Route::get('/', 'QuestionController@create')->name('question');
     Route::post('/', 'QuestionController@store')->name('question');

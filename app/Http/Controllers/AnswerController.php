@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Answer;
 use App\Question;
+use App\Topic;
+use App\Answer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class AnswerController extends Controller
 {
@@ -43,10 +46,10 @@ class AnswerController extends Controller
             'answer' => 'required'
         ]);
 
-        $answer = new Answer;
-        $answer->user_id = auth()->id();
+        $answer = new Answer();
+        $answer->user_id = Auth::user()->id;
         $answer->question_id = $request->question_id;
-        $answer->answer = $request->answer;
+        $answer->text = $request->answer;
 
         $answer->save();
         return redirect()->back();
@@ -60,20 +63,19 @@ class AnswerController extends Controller
      */
     public function show(Request $request, Question $id)
     {
-        // $id = Question::find($request->id);
-        // dd($id);
-        // $topic_id = $id;
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
-            // ->join('users', 'answers.user_id', '=', 'users.id')
+            ->join('users', 'answers.user_id', '=', 'users.id')
             ->join('topics','questions.topic_id', '=', 'topics.id')
-            ->where('answers.question_id','=', 'questions.id')
+            ->where('answers.question_id','=', $id)
             ->select('answers.id','answers.text','answers.created_at',
-                'questions.open', 'questions.text as question_text',
-                'questions.user_id as user_id','users.profile_image','users.name as user_name',
-                )->get();
-            dd($answers);
-                // return view('question.answer', ['answer' => $answers]);
+                'questions.open as status', 'questions.text as question_text',
+                'users.id as user_id','users.profile_image','users.name as user_name',
+                'topics.name as topic_name')
+            ->paginate(10);
+        $question = Question::find($id);
+        return view('answer', ['answers' => $answers , "question" => $question] );
+
     }
 
     /**
@@ -84,7 +86,8 @@ class AnswerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $answer = Answer::find($id);
+        return view('edit_answer', ['answer' => $answer] );
     }
 
     /**
@@ -96,7 +99,15 @@ class AnswerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'answer' => 'required',
+        ]);
+
+        $model = Answer::find($id);
+        $model->text = $request->answer;
+        $model->save();
+
+        return redirect('/question/'.$model->question_id);
     }
 
     /**
