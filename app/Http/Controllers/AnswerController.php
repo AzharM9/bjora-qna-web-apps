@@ -47,7 +47,7 @@ class AnswerController extends Controller
         ]);
 
         $answer = new Answer();
-        $answer->user_id = auth()->id();
+        $answer->user_id = Auth::user()->id;
         $answer->question_id = $request->question_id;
         $answer->text = $request->answer;
 
@@ -65,7 +65,7 @@ class AnswerController extends Controller
     {
         $answers = DB::table('answers')
             ->join('questions','answers.question_id','=','questions.id')
-            ->join('users', 'questions.user_id', '=', 'users.id')
+            ->join('users', 'answers.user_id', '=', 'users.id')
             ->join('topics','questions.topic_id', '=', 'topics.id')
             ->where('answers.question_id','=', $id)
             ->select('answers.id','answers.text','answers.created_at',
