@@ -32,7 +32,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   /* method ini utk menampilkan form utk membuat question */
         $topics = Topic::all();
         return view('question.question',  ['topics' => $topics] );
     }

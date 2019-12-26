@@ -19,7 +19,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(User $profile)
-    {
+    {   /* menampilkan data user yang sedang login*/
         /* Mencari user yang sedang login */
         // $profile = $user;
         $profile = Auth::user();
@@ -57,7 +57,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
+    {   /* menampilkan data user yang sedang login*/
         $profile = User::find($id);
         return view('profile.index', compact('profile'));
     }
@@ -68,7 +68,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit()
-    {
+    {   /*method ini utk menampilkan form utk mengedit profile user*/
         //ini membuat user lain tidak bisa akses edit profile orang lain
         $profile = User::findOrFail(Auth::user()->id);
         return view('profile.edit', compact('profile'));
@@ -82,7 +82,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {   /* method ini digunakan utk menstore data hasil update dari form edit yg telat diisi */
         $this->validate($request, [
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|unique:users,email,'.$id.',id',

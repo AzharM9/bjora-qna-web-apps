@@ -21,7 +21,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   /* */
+    {   /* show list message yang diterima user*/
         $user_id = Auth::user()->id;
         $messages = DB::table('messages')
             ->join('users as sender','messages.from_user_id','=','sender.id')
@@ -50,7 +50,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   /* menyimpan message yang sdh dibuat utk disend di DB */
         $this->validate($request, [
             'receiver_id' => 'required',
             'message' => 'required'
@@ -106,7 +106,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   /* menghapus message */
         Message::find($id)->delete();
 
         return redirect()->back();
