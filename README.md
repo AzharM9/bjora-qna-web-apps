@@ -1,5 +1,5 @@
-#Project Matakuliah Web Programming
-#Framework: Laravel & Bootstrap
+# Project Matakuliah Web Programming
+# Framework: Laravel & Bootstrap
 
-#Bjora
-#QnA Web Apps
+# Bjora
+# QnA Web Apps
